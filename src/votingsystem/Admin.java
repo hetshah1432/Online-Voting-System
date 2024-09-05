@@ -1,6 +1,7 @@
 package votingsystem;
 
 import java.util.*;
+
 public class Admin {
     private Map<String, Integer> candidates = new HashMap<>();
     private Set<String> voters = new HashSet<>();  // Track who has voted
@@ -46,5 +47,10 @@ public class Admin {
 
         result.append("\nLeading Candidate: ").append(leadingCandidate).append(" with ").append(maxVotes).append(" votes");
         return result.toString();
+    }
+
+    // Get the list of candidates
+    public List<String> getCandidates() {
+        return new ArrayList<>(candidates.keySet());
     }
 }
