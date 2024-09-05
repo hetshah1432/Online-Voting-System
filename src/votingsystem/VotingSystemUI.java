@@ -1,10 +1,11 @@
 package votingsystem;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import java.util.List;
 
 public class VotingSystemUI {
     public static void main(String[] args) {
@@ -29,24 +30,40 @@ public class VotingSystemUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame userFrame = new JFrame("User Voting");
-                userFrame.setSize(300, 200);
-
+                userFrame.setSize(400, 300);
+                
                 // Create User interface
                 JLabel nameLabel = new JLabel("Enter your name:");
                 JTextField nameField = new JTextField(10);
                 JLabel ageLabel = new JLabel("Enter your age:");
-                JTextField ageField = new JTextField(2);
-                JLabel voteLabel = new JLabel("Enter candidate name:");
-                JTextField voteField = new JTextField(10);
+                JTextField ageField = new JTextField(4);
+                JLabel voteLabel = new JLabel("Select a candidate:");
+
+                // Create a table to display the list of candidates
+                DefaultTableModel tableModel = new DefaultTableModel(new String[]{"Candidates"}, 0);
+                JTable candidateTable = new JTable(tableModel);
+                JScrollPane scrollPane = new JScrollPane(candidateTable);
+
+                // Populate the table with candidates from Admin
+                List<String> candidates = admin.getCandidates();
+                for (String candidate : candidates) {
+                    tableModel.addRow(new Object[]{candidate});
+                }
+
                 JButton submitVoteButton = new JButton("Submit Vote");
 
+                // Create a panel with BoxLayout to stack components vertically
                 JPanel panel = new JPanel();
+                panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+                
+                // Add components to the panel
                 panel.add(nameLabel);
                 panel.add(nameField);
                 panel.add(ageLabel);
                 panel.add(ageField);
                 panel.add(voteLabel);
-                panel.add(voteField);
+                panel.add(scrollPane);  // Add the table inside a scroll pane
+                panel.add(Box.createRigidArea(new Dimension(0, 10))); // Add space between fields and button
                 panel.add(submitVoteButton);
 
                 userFrame.add(panel);
@@ -57,8 +74,15 @@ public class VotingSystemUI {
                     public void actionPerformed(ActionEvent e) {
                         try {
                             String name = nameField.getText();
-                            String vote = voteField.getText();
                             int age = Integer.parseInt(ageField.getText());
+
+                            // Get selected candidate
+                            int selectedRow = candidateTable.getSelectedRow();
+                            if (selectedRow == -1) {
+                                JOptionPane.showMessageDialog(null, "Please select a candidate to vote for!", "Error", JOptionPane.ERROR_MESSAGE);
+                                return;
+                            }
+                            String vote = (String) tableModel.getValueAt(selectedRow, 0);
 
                             // Validate name to allow only alphabetic characters
                             if (!isValidName(name)) {
@@ -68,8 +92,6 @@ public class VotingSystemUI {
                             if (age < 18) {
                                 JOptionPane.showMessageDialog(null, "You must be at least 18 years old to vote.", "Age Restriction", JOptionPane.WARNING_MESSAGE);
                                 userFrame.dispose();  // Close the voting frame
-                            } else if (vote.isEmpty()) {
-                                JOptionPane.showMessageDialog(null, "Please enter a candidate to vote for!", "Error", JOptionPane.ERROR_MESSAGE);
                             } else {
                                 // Cast vote using Admin's voting method to check for duplicate votes
                                 admin.castVote(name, vote);
@@ -84,7 +106,6 @@ public class VotingSystemUI {
                         }
                     }
                 });
-
             }
         });
 
@@ -142,8 +163,6 @@ public class VotingSystemUI {
     // Helper method to validate if the name contains only alphabetic characters
     private static boolean isValidName(String name) {
         // Regular expression to check only alphabetic characters
-        Pattern pattern = Pattern.compile("^[a-zA-Z]+$");
-        Matcher matcher = pattern.matcher(name);
-        return matcher.matches();
+        return name != null && name.matches("^[a-zA-Z]+$");
     }
 }
