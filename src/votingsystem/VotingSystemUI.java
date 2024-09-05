@@ -3,13 +3,15 @@ package votingsystem;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class VotingSystemUI {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Online Voting System");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         // Panel for user role selection
         JPanel rolePanel = new JPanel();
         JLabel roleLabel = new JLabel("Select Role: ");
@@ -58,6 +60,11 @@ public class VotingSystemUI {
                             String vote = voteField.getText();
                             int age = Integer.parseInt(ageField.getText());
 
+                            // Validate name to allow only alphabetic characters
+                            if (!isValidName(name)) {
+                                throw new Exception("Invalid name! Please use only alphabetic characters.");
+                            }
+
                             if (age < 18) {
                                 JOptionPane.showMessageDialog(null, "You must be at least 18 years old to vote.", "Age Restriction", JOptionPane.WARNING_MESSAGE);
                                 userFrame.dispose();  // Close the voting frame
@@ -77,6 +84,7 @@ public class VotingSystemUI {
                         }
                     }
                 });
+
             }
         });
 
@@ -129,5 +137,13 @@ public class VotingSystemUI {
         // Adding rolePanel to frame
         frame.add(rolePanel);
         frame.setVisible(true);
+    }
+
+    // Helper method to validate if the name contains only alphabetic characters
+    private static boolean isValidName(String name) {
+        // Regular expression to check only alphabetic characters
+        Pattern pattern = Pattern.compile("^[a-zA-Z]+$");
+        Matcher matcher = pattern.matcher(name);
+        return matcher.matches();
     }
 }
