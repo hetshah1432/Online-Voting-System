@@ -74,7 +74,7 @@ java votingsystem.VotingSystemUI<br>
 -Implement a more sophisticated voting algorithm.<br>
 ## Screenshots
 ### User Voting Screen
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/1tKnH7QD/Screenshot-2024-09-06-002658.png' border='0' alt='Screenshot-2024-09-06-002658'/></a>)
+<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/1tKnH7QD/Screenshot-2024-09-06-002658.png' border='0' alt='Screenshot-2024-09-06-002658'/></a>
 ### Admin Panel
 <a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/RhFFTMGz/Screenshot-2024-09-06-002707.png' border='0' alt='Screenshot-2024-09-06-002707'/></a>
 
