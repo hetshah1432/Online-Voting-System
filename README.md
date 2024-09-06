@@ -32,10 +32,10 @@ my-voting-system/
         └── VotingSystemUI.java
 ```
 ### Explanation of Files:
--User.java: Represents the User who casts a vote.
--Admin.java: Represents the Admin who manages the election by adding candidates and viewing results.
--InvalidRoleException.java: Custom exception for handling invalid role inputs.
--VotingSystemUI.java: The main class that handles the user interface and overall voting system logic.
+-User.java: Represents the User who casts a vote.<br>
+-Admin.java: Represents the Admin who manages the election by adding candidates and viewing results.<br>
+-InvalidRoleException.java: Custom exception for handling invalid role inputs.<br>
+-VotingSystemUI.java: The main class that handles the user interface and overall voting system logic.<br>
 ## How to Run
 
 1)Clone this repository to your local machine:<br>
