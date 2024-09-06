@@ -16,11 +16,11 @@ An Online Voting System built using Java Swing for the User Interface, where use
 -User names containing invalid characters (e.g., numbers, special characters) are rejected.<br>
 -Exception handling for invalid inputs.<br>
 ## Technologies Used
--Java Swing: For building the graphical user interface (UI).
--Java Generics: Used to create flexible and reusable components.
--Java Interfaces: Applied to define the behavior of voting systems.
--Exception Handling: To handle invalid inputs and errors gracefully.
--Regular Expressions (RegEx): For name validation, ensuring only alphabetic characters are allowed.
+-Java Swing: For building the graphical user interface (UI).<br>
+-Java Generics: Used to create flexible and reusable components.<br>
+-Java Interfaces: Applied to define the behavior of voting systems.<br>
+-Exception Handling: To handle invalid inputs and errors gracefully.<br>
+-Regular Expressions (RegEx): For name validation, ensuring only alphabetic characters are allowed.<br>
 ## Project Structure
 ```
 my-voting-system/
