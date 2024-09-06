@@ -30,23 +30,29 @@ public class Admin {
         System.out.println("Vote cast for " + candidate + " by " + voterName);
     }
 
-    // Get the election results and show who's winning
+    // Get the election results and show who's winning or if there is a tie
     public String getResults() {
-        StringBuilder result = new StringBuilder("Election Results:\n");
+        if (candidates.isEmpty()) {
+            return "No candidates available.";
+        }
 
-        int maxVotes = -1;
-        String leadingCandidate = "No winner yet";
+        // Find the maximum number of votes
+        int maxVotes = Collections.max(candidates.values());
 
+        // Collect all candidates who have the maximum number of votes
+        List<String> topCandidates = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : candidates.entrySet()) {
-            result.append(entry.getKey()).append(": ").append(entry.getValue()).append(" votes\n");
-            if (entry.getValue() > maxVotes) {
-                maxVotes = entry.getValue();
-                leadingCandidate = entry.getKey();
+            if (entry.getValue() == maxVotes) {
+                topCandidates.add(entry.getKey());
             }
         }
 
-        result.append("\nLeading Candidate: ").append(leadingCandidate).append(" with ").append(maxVotes).append(" votes");
-        return result.toString();
+        // Check if there's a tie
+        if (topCandidates.size() > 1) {
+            return "It's a tie between: " + String.join(", ", topCandidates) + " with " + maxVotes + " votes each.";
+        } else {
+            return topCandidates.get(0) + " is winning with " + maxVotes + " votes.";
+        }
     }
 
     // Get the list of candidates
