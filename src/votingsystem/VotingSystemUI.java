@@ -31,7 +31,7 @@ public class VotingSystemUI {
             public void actionPerformed(ActionEvent e) {
                 JFrame userFrame = new JFrame("User Voting");
                 userFrame.setSize(400, 300);
-                
+
                 // Create User interface
                 JLabel nameLabel = new JLabel("Enter your name:");
                 JTextField nameField = new JTextField(10);
@@ -55,7 +55,7 @@ public class VotingSystemUI {
                 // Create a panel with BoxLayout to stack components vertically
                 JPanel panel = new JPanel();
                 panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-                
+
                 // Add components to the panel
                 panel.add(nameLabel);
                 panel.add(nameField);
@@ -84,9 +84,9 @@ public class VotingSystemUI {
                             }
                             String vote = (String) tableModel.getValueAt(selectedRow, 0);
 
-                            // Validate name to allow only alphabetic characters
+                            // Validate name to allow only alphabetic characters and spaces
                             if (!isValidName(name)) {
-                                throw new Exception("Invalid name! Please use only alphabetic characters.");
+                                throw new Exception("Invalid name! Please use only alphabetic characters and spaces.");
                             }
 
                             if (age < 18) {
@@ -160,9 +160,9 @@ public class VotingSystemUI {
         frame.setVisible(true);
     }
 
-    // Helper method to validate if the name contains only alphabetic characters
+    // Helper method to validate if the name contains only alphabetic characters and spaces
     private static boolean isValidName(String name) {
-        // Regular expression to check only alphabetic characters
-        return name != null && name.matches("^[a-zA-Z]+$");
+        // Regular expression to check alphabetic characters and spaces
+        return name != null && name.matches("^[a-zA-Z ]+$");
     }
 }
